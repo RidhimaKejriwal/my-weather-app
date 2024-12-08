@@ -1,0 +1,62 @@
+<div class="header text-center form-group">
+    <input class="form-control" type="text" placeholder="Search for a location" (input)="updateSearch($event)" (change)="search()"> 
+    <!-- <button class="btn btn-warning" (click)="search()"> Search</button> -->
+</div>
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.5)"
+  size="medium"
+  color="white"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+>
+</ngx-spinner>
+<div class="weather-container" *ngIf="weatherData">
+    <div class="cards-container">
+        <div class="first-row">
+            <div class="card weather-card text-white">
+                <h4><i class="fa-solid fa-location-dot me-2"></i>{{location}}</h4>
+                <p class="description">{{description}}</p>
+                <span>Now</span>
+                <h2>{{convertFahrenheitToCelsius(weatherData?.currentConditions?.temp)}}&deg;C</h2>
+                <span>{{weatherData?.currentConditions?.conditions}}</span>
+            </div>
+            <div class="card air-quality text-white">
+                <h5>Wind Speed</h5>
+                <h2>{{convertMphToKmh(weatherData?.currentConditions?.windspeed) | number:'1.1-1'}} km/h</h2>
+                <span>{{getCardinalDirection(weatherData?.currentConditions?.winddir)}} Winds</span>
+            </div>
+            <div class="card rainfall text-white">
+                <h5>Rainfall</h5>
+            </div>
+            <div class="card moonrise text-white">
+                <h5>Sunrise / Sunset</h5>
+                <span>Sunrise: {{weatherData.currentConditions?.sunrise}}</span>
+                <span>Sunset: {{weatherData.currentConditions?.sunset}}</span>
+                <span>Moon phase: {{weatherData.currentConditions?.moonphase}}</span>
+            </div>
+        </div>
+        <div class="forecast-container">
+            <div class="forecast">
+                <h4 class="text-white">15 Day Forecast</h4>
+                <div class="forecast-cards">
+                    <div *ngFor="let day of days" class="card forecast-data">
+                        <img src="/assets/images/weather.png" alt="">
+                        <div class="data">
+                            <span>{{formatDate(day.datetime)}}</span>
+                            <p>{{day.conditions}}</p>
+                        </div>
+                        <span class="temp">{{convertFahrenheitToCelsius(day.tempmax)}}&deg;/{{convertFahrenheitToCelsius(day.tempmin)}}&deg;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hourly-data">
+        <h4 class="text-white">Hourly Forecast</h4>
+        <div *ngFor="let hour of days[0].hours" class="hour">
+            <span>{{convertFahrenheitToCelsius(hour.temp)}}&deg;</span>
+            <img src="/assets/images/weather.png" alt="">
+            <span>{{hour.datetime | slice:0:5}}</span>
+        </div>
+    </div>
+</div>
