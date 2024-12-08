@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="hourly-data">
-        <h4 class="text-white">Hourly Forecast Data</h4>
+        <h4 class="text-white">Hourly Forecast</h4>
         <div *ngFor="let hour of days[0].hours" class="hour">
             <span>{{convertFahrenheitToCelsius(hour.temp)}}&deg;</span>
             <img src="/assets/images/weather.png" alt="">

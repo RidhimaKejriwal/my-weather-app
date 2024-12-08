@@ -135,6 +135,95 @@
         .cards-container {
             width: 100%;
         }
+        .hourly-data {
+            width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .weather-container {
+        .cards-container {
+            width: 90%;
+            .first-row {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                margin: auto;
+
+                .weather-card {
+                    width: 100%;
+                }
+                .air-quality {
+                    width: 100%;
+                }
+                .rainfall {
+                    width: 100%;
+                }
+                .moonrise {
+                    width: 100%;
+                }
+            }
+            .forecast-container {
+                width: 50%;
+                .forecast {
+                    .forecast-cards {
+                        height: 76vh;
+                    }
+                }
+            }
+        }
+        .hourly-data {
+            width: 90%;
+        }
     }
 }
   
+@media screen and (max-width: 750px){
+    .weather-container {
+        .cards-container {
+            width: 97%;
+        }
+        .hourly-data {
+            width: 97%;
+        }
+    }
+}
+
+@media screen and (max-width:600px) {
+    .weather-container {
+        .cards-container {
+            flex-direction: column;
+            width: 90%;
+            .first-row {
+                flex-direction: column;
+                width: 100%;
+                margin: auto;
+
+                .weather-card {
+                    width: 100%;
+                }
+                .air-quality {
+                    width: 100%;
+                }
+                .rainfall {
+                    width: 100%;
+                }
+                .moonrise {
+                    width: 100%;
+                }
+            }
+            .forecast-container {
+                width: 100%;
+                .forecast {
+                    .forecast-cards {
+                        height: 40vh;
+                    }
+                }
+            }
+        }
+        .hourly-data {
+            width: 86%;
+        }
+    }
+}
