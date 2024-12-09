@@ -94,4 +94,17 @@ getCardinalDirection(degrees: number): string {
   if (degrees > 292.5 && degrees <= 337.5) return 'Northwest';
   return 'Unknown';
 }
+
+getImage(day:any) {
+  const condition: string = day.conditions;
+  if(condition.includes("Rain")) {
+    return "/assets/images/heavy-rain.png";
+  }
+  else if(condition.includes("Clear")) {
+    return "/assets/images/day.png";
+  }
+  else {
+    return "/assets/images/cloudy-day.png"
+  }
+}
 }
