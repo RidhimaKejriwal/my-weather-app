@@ -29,7 +29,7 @@
                 <h5>Rainfall</h5>
                 <span>Precipitation: {{days[0].precip}}mm</span>
                 <span>Probability: {{days[0].precipprob}}%</span>
-                <span *ngIf="days[0].preciptype[0]">Type: {{days[0].preciptype}}</span>
+                <span *ngIf="days[0].preciptype">Type: {{days[0].preciptype[0]}}</span>
                 <h6>{{days[0].conditions}}</h6>
             </div>
             <div class="card moonrise text-white">
@@ -43,7 +43,7 @@
             <div class="forecast">
                 <h4 class="text-white">15 Day Forecast</h4>
                 <div class="forecast-cards">
-                    <div *ngFor="let day of days" class="card forecast-data">
+                    <div *ngFor="let day of days" class="card forecast-data cursor-pointer" (click)="changeHourlyData(day)">
                         <img [src]="getImage(day)" alt="">
                         <div class="data">
                             <span>{{formatDate(day.datetime)}}</span>
@@ -57,7 +57,7 @@
     </div>
     <div class="hourly-data">
         <h4 class="text-white">Hourly Forecast</h4>
-        <div *ngFor="let hour of days[0].hours" class="hour">
+        <div *ngFor="let hour of selectedDay.hours" class="hour">
             <span>{{convertFahrenheitToCelsius(hour.temp)}}&deg;</span>
             <img [src]="getImage(hour)" alt="">
             <span>{{hour.datetime | slice:0:5}}</span>

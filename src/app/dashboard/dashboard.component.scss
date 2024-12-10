@@ -130,6 +130,10 @@
     width: 10px;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1100px){
     .weather-container {
         .cards-container {
@@ -168,7 +172,7 @@
                 width: 50%;
                 .forecast {
                     .forecast-cards {
-                        height: 76vh;
+                        height: 86vh;
                     }
                 }
             }

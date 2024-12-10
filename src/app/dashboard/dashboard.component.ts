@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit{
   location: string = '';
   description: string = '';
   days: any;
+  selectedDay: any
 
   constructor(private weatherService: WeatherService, private toastr: ToastrService, private spinner: NgxSpinnerService) {
 
@@ -54,6 +55,7 @@ export class DashboardComponent implements OnInit{
     this.location = this.weatherData.resolvedAddress;
     this.description = this.weatherData.description;
     this.days = this.weatherData.days;
+    this.selectedDay = this.days[0];
   }
 
   convertFahrenheitToCelsius(fahrenheit: number): number {
@@ -81,30 +83,35 @@ export class DashboardComponent implements OnInit{
 
  convertMphToKmh(mph: number): number {
   return mph * 1.60934; 
-}
+  }
 
-getCardinalDirection(degrees: number): string {
-  if (degrees >= 0 && degrees <= 22.5 || degrees > 337.5 && degrees <= 360) return 'North';
-  if (degrees > 22.5 && degrees <= 67.5) return 'Northeast';
-  if (degrees > 67.5 && degrees <= 112.5) return 'East';
-  if (degrees > 112.5 && degrees <= 157.5) return 'Southeast';
-  if (degrees > 157.5 && degrees <= 202.5) return 'South';
-  if (degrees > 202.5 && degrees <= 247.5) return 'Southwest';
-  if (degrees > 247.5 && degrees <= 292.5) return 'West';
-  if (degrees > 292.5 && degrees <= 337.5) return 'Northwest';
-  return 'Unknown';
-}
+  getCardinalDirection(degrees: number): string {
+    if (degrees >= 0 && degrees <= 22.5 || degrees > 337.5 && degrees <= 360) return 'North';
+    if (degrees > 22.5 && degrees <= 67.5) return 'Northeast';
+    if (degrees > 67.5 && degrees <= 112.5) return 'East';
+    if (degrees > 112.5 && degrees <= 157.5) return 'Southeast';
+    if (degrees > 157.5 && degrees <= 202.5) return 'South';
+    if (degrees > 202.5 && degrees <= 247.5) return 'Southwest';
+    if (degrees > 247.5 && degrees <= 292.5) return 'West';
+    if (degrees > 292.5 && degrees <= 337.5) return 'Northwest';
+    return 'Unknown';
+  }
 
-getImage(day:any) {
-  const condition: string = day.conditions;
-  if(condition.includes("Rain")) {
-    return "/assets/images/heavy-rain.png";
+  getImage(day:any) {
+    const condition: string = day.conditions;
+    if(condition.includes("Rain")) {
+      return "/assets/images/heavy-rain.png";
+    }
+    else if(condition.includes("Clear")) {
+      return "/assets/images/day.png";
+    }
+    else {
+      return "/assets/images/cloudy-day.png"
+    }
   }
-  else if(condition.includes("Clear")) {
-    return "/assets/images/day.png";
+
+  changeHourlyData(day: any) {
+    this.selectedDay = day;
   }
-  else {
-    return "/assets/images/cloudy-day.png"
-  }
-}
+
 }
