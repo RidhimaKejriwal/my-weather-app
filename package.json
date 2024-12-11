@@ -20,7 +20,6 @@
     "@angular/router": "^16.2.0",
     "chart.js": "^4.4.7",
     "my-weather-app": "file:",
-    "ng2-charts": "^7.0.0",
     "ngx-spinner": "^17.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
