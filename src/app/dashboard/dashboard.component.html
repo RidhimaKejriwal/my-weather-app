@@ -1,6 +1,5 @@
 <div class="header text-center form-group">
     <input class="form-control" type="text" placeholder="Search for a location" (input)="updateSearch($event)" (change)="search()"> 
-    <!-- <button class="btn btn-warning" (click)="search()"> Search</button> -->
 </div>
 <ngx-spinner
   bdColor="rgba(0,0,0,0.5)"
@@ -63,4 +62,26 @@
             <span>{{hour.datetime | slice:0:5}}</span>
         </div>
     </div>
+    <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(254, 254, 253); border-radius: 10px;">
+        <app-charts
+          [chartType]="'line'"
+          [chartData]="lineChartData"
+          [chartOptions]="lineChartOptions">
+        </app-charts>
+      </div>
+      <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(244, 251, 246); border-radius: 10px;">
+        <app-charts
+          [chartType]="'bar'"
+          [chartData]="barChartData"
+          [chartOptions]="barChartOptions">
+        </app-charts>
+      </div>
+      <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(248, 226, 249); border-radius: 10px;">
+        <app-charts
+          [chartType]="'radar'"
+          [chartData]="windChartData"
+          [chartOptions]="windChartOptions">
+        </app-charts>
+      </div>
+      
 </div>

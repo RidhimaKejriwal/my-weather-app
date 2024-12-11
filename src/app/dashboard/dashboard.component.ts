@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  Chart,
+  ChartConfiguration,
+  registerables // Import required registerables
+} from 'chart.js';
+
+Chart.register(...registerables); // Register all necessary chart components
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +23,89 @@ export class DashboardComponent implements OnInit{
   description: string = '';
   days: any;
   selectedDay: any
+  lineChartData = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Temperature (°C)',
+        data: [],
+        borderColor: 'rgb(255, 159, 64)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        fill: true,
+      }
+    ]
+  };
+
+  lineChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  barChartData = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Precipitation Probability (%)',
+        data: [],
+        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+        borderColor: ['rgb(75, 192, 192)'],
+        borderWidth: 1,
+      }
+    ]
+  };
+
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
+
+  windChartData = {
+    labels: [], 
+    datasets: [
+      {
+        label: 'Wind Speed (km/h)',
+        data: [], 
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'rgb(153, 102, 255)',
+        borderWidth: 1,
+      }
+    ]
+  };
+
+  windChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
 
   constructor(private weatherService: WeatherService, private toastr: ToastrService, private spinner: NgxSpinnerService) {
 
@@ -41,6 +132,7 @@ export class DashboardComponent implements OnInit{
       this.weatherData = res;
       this.fillData();
       this.showAlert();
+      this.getChartsData();
     },
     (error) => {
       console.log(error);
@@ -49,6 +141,21 @@ export class DashboardComponent implements OnInit{
       this.spinner.hide();
     }
   )
+  }
+
+  getChartsData() {
+    this.lineChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
+    this.lineChartData.datasets[0].data = this.days.map((day: any) =>
+      this.convertFahrenheitToCelsius(day.temp)
+    );
+    this.barChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
+    this.barChartData.datasets[0].data = this.days.map((day: any) =>
+      day.precipprob || 0
+    );
+    this.windChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
+    this.windChartData.datasets[0].data = this.days.map((day: any) =>
+      this.convertMphToKmh(day.windspeed)
+    );
   }
 
   fillData() {
