@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 
 @Component({
@@ -6,7 +6,7 @@ import { Chart, ChartConfiguration, ChartType } from 'chart.js';
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.scss']
 })
-export class ChartsComponent {
+export class ChartsComponent implements OnChanges {
   @ViewChild('chartCanvas', { static: true }) chartCanvas!: ElementRef<HTMLCanvasElement>;
   @Input() chartType: ChartType = 'bar'; // Default to bar chart
   @Input() chartData: ChartConfiguration['data'] = {
@@ -17,8 +17,13 @@ export class ChartsComponent {
 
   private chart!: Chart;
 
-  ngOnInit(): void {
-    this.initializeChart();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['chartData'] && this.chart) {
+      this.chart.data = this.chartData; 
+      this.chart.update(); 
+    } else if (!this.chart) {
+      this.initializeChart(); 
+    }
   }
 
   private initializeChart(): void {

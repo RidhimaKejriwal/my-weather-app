@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsComponent } from './charts/charts.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ChartsComponent } from './charts/charts.component';
       preventDuplicates: true
     }),
     NgxSpinnerModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,10 +5,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {
   Chart,
   ChartConfiguration,
-  registerables // Import required registerables
+  registerables
 } from 'chart.js';
 
-Chart.register(...registerables); // Register all necessary chart components
+Chart.register(...registerables);
 
 
 @Component({
@@ -23,18 +23,7 @@ export class DashboardComponent implements OnInit{
   description: string = '';
   days: any;
   selectedDay: any
-  lineChartData = {
-    labels: [],
-    datasets: [
-      {
-        label: 'Temperature (°C)',
-        data: [],
-        borderColor: 'rgb(255, 159, 64)',
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-        fill: true,
-      }
-    ]
-  };
+  lineChartData: any
 
   lineChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -51,18 +40,7 @@ export class DashboardComponent implements OnInit{
     }
   };
 
-  barChartData = {
-    labels: [],
-    datasets: [
-      {
-        label: 'Precipitation Probability (%)',
-        data: [],
-        backgroundColor: ['rgba(75, 192, 192, 0.2)'],
-        borderColor: ['rgb(75, 192, 192)'],
-        borderWidth: 1,
-      }
-    ]
-  };
+  barChartData: any
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -79,18 +57,7 @@ export class DashboardComponent implements OnInit{
     }
   };
 
-  windChartData = {
-    labels: [], 
-    datasets: [
-      {
-        label: 'Wind Speed (km/h)',
-        data: [], 
-        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-        borderColor: 'rgb(153, 102, 255)',
-        borderWidth: 1,
-      }
-    ]
-  };
+  windChartData: any
 
   windChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -112,50 +79,79 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.spinner.show();
     this.getWeatherData('India');
-  }
-
-  updateSearch(event: any) {
-    this.searchInput = event.target.value;
   }
 
   search() {
     this.getWeatherData(this.searchInput);
+    this.searchInput = ''; 
   }
 
   getWeatherData(city: string) {
+    this.spinner.show();
     if(!city) {
       city = 'India';
     }
     this.weatherService.getCityData(city).subscribe((res)=> {
       this.weatherData = res;
       this.fillData();
-      this.showAlert();
-      this.getChartsData();
+      this.spinner.hide();
     },
     (error) => {
-      console.log(error);
+      if(error.status === 400) {
+        this.toastr.error("Invalid City Input!!");
+      }
+      this.spinner.hide();
     },
     () => {
-      this.spinner.hide();
+      
     }
   )
   }
 
   getChartsData() {
-    this.lineChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
-    this.lineChartData.datasets[0].data = this.days.map((day: any) =>
-      this.convertFahrenheitToCelsius(day.temp)
-    );
-    this.barChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
-    this.barChartData.datasets[0].data = this.days.map((day: any) =>
-      day.precipprob || 0
-    );
-    this.windChartData.labels = this.days.map((day: any) => this.formatDate(day.datetime));
-    this.windChartData.datasets[0].data = this.days.map((day: any) =>
-      this.convertMphToKmh(day.windspeed)
-    );
+    this.lineChartData = {
+      labels: [...this.days.map((day: any) => this.formatDate(day.datetime))],
+      datasets: [
+        {
+          data: [...this.days.map((day: any) =>
+            this.convertFahrenheitToCelsius(day.temp)
+          )],
+          label: 'Temperature (°C)',
+          borderColor: '#3e95cd',
+          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+          fill: true,
+        },
+      ],
+    };
+
+    this.barChartData = {
+      labels: [...this.days.map((day: any) => this.formatDate(day.datetime))],
+      datasets: [
+        {
+          data: [...this.days.map((day: any) => day.precipprob || 0)],
+          label: 'Precipitation Probability (%)',
+          backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+          borderColor: ['rgb(75, 192, 192)'],
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    this.windChartData = { 
+      labels: [...this.days.map((day: any) => this.formatDate(day.datetime))],
+      datasets: [
+        {
+          data: [...this.days.map((day: any) =>
+            this.convertMphToKmh(day.windspeed)
+          )],
+          label: 'Wind Speed (km/h)',
+          backgroundColor: 'rgba(153, 102, 255, 0.2)',
+          borderColor: 'rgb(153, 102, 255)',
+          borderWidth: 1,
+        },
+      ],
+    };
   }
 
   fillData() {
@@ -163,6 +159,7 @@ export class DashboardComponent implements OnInit{
     this.description = this.weatherData.description;
     this.days = this.weatherData.days;
     this.selectedDay = this.days[0];
+    this.getChartsData();
   }
 
   convertFahrenheitToCelsius(fahrenheit: number): number {

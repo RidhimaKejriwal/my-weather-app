@@ -1,14 +1,6 @@
 <div class="header text-center form-group">
-    <input class="form-control" type="text" placeholder="Search for a location" (input)="updateSearch($event)" (change)="search()"> 
+    <input class="form-control" type="text" placeholder="Search for a location" [(ngModel)]="searchInput" (change)="search()"> 
 </div>
-<ngx-spinner
-  bdColor="rgba(0,0,0,0.5)"
-  size="medium"
-  color="white"
-  type="ball-scale-multiple"
-  [fullScreen]="true"
->
-</ngx-spinner>
 <div class="weather-container" *ngIf="weatherData">
     <div class="cards-container">
         <div class="first-row">
