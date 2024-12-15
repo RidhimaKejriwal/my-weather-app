@@ -1,12 +1,15 @@
 <div class="header text-center form-group">
-    <input class="form-control" type="text" placeholder="Search for a location" [(ngModel)]="searchInput" (change)="search()"> 
+    <div class="search">
+        <input class="form-control" type="text" placeholder="Search for a location" [(ngModel)]="searchInput" (change)="search()"> 
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    </div>
+    <i (click)="showAlert()" class="fa-regular fa-bell alert-icon"></i>
 </div>
 <div class="weather-container" *ngIf="weatherData">
     <div class="cards-container">
         <div class="first-row">
             <div class="card weather-card text-white">
                 <h4><i class="fa-solid fa-location-dot me-2"></i>{{location}}</h4>
-                <p class="description">{{description}}</p>
                 <span>Now</span>
                 <h2>{{convertFahrenheitToCelsius(weatherData?.currentConditions?.temp)}}&deg;C</h2>
                 <span>{{weatherData?.currentConditions?.conditions}}</span>
@@ -46,33 +49,37 @@
             </div>
         </div>
     </div>
-    <div class="hourly-data">
+    <div class="hours-data">
         <h4 class="text-white">Hourly Forecast</h4>
-        <div *ngFor="let hour of selectedDay.hours" class="hour">
-            <span>{{convertFahrenheitToCelsius(hour.temp)}}&deg;</span>
-            <img [src]="getImage(hour)" alt="">
-            <span>{{hour.datetime | slice:0:5}}</span>
+        <div class="hourly-data">
+            <div *ngFor="let hour of selectedDay.hours" class="hour text-center">
+                <span>{{convertFahrenheitToCelsius(hour.temp)}}&deg;</span>
+                <img [src]="getImage(hour)" alt="">
+                <span>{{hour.datetime | slice:0:5}}</span>
+            </div>
         </div>
     </div>
-    <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(254, 254, 253); border-radius: 10px;">
-        <app-charts
-          [chartType]="'line'"
-          [chartData]="lineChartData"
-          [chartOptions]="lineChartOptions">
-        </app-charts>
-      </div>
-      <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(244, 251, 246); border-radius: 10px;">
-        <app-charts
-          [chartType]="'bar'"
-          [chartData]="barChartData"
-          [chartOptions]="barChartOptions">
-        </app-charts>
-      </div>
-      <div class="mb-2" style="width: 80%; margin: auto; background-color: rgb(248, 226, 249); border-radius: 10px;">
-        <app-charts
-          [chartType]="'radar'"
-          [chartData]="windChartData"
-          [chartOptions]="windChartOptions">
-        </app-charts>
-      </div>
+    <div class="charts">
+        <div class="mb-4 chart">
+            <app-charts
+              [chartType]="'line'"
+              [chartData]="lineChartData"
+              [chartOptions]="lineChartOptions">
+            </app-charts>
+        </div>
+        <div class="mb-4 chart">
+            <app-charts
+              [chartType]="'bar'"
+              [chartData]="barChartData"
+              [chartOptions]="barChartOptions">
+            </app-charts>
+        </div>
+        <div class="mb-2 chart">
+            <app-charts
+              [chartType]="'radar'"
+              [chartData]="windChartData"
+              [chartOptions]="windChartOptions">
+            </app-charts>
+        </div>
+    </div>
 </div>

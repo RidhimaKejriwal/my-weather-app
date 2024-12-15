@@ -2,12 +2,34 @@
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
-    margin-top: 2rem;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 60%;
+    margin: auto;
 
-    input {
-        width: 60%;
-        margin: auto;
-        border-radius: 10px;
+    .search {
+        margin-top: 2rem;
+        position: relative;
+        width: 100%;
+        input {
+            border-radius: 10px;
+        }
+        .search-icon {
+            color: orange; 
+            position: absolute; 
+            top: 10px; 
+            right: 4%;
+        }
+    }
+    .alert-icon {
+        margin-top: 2rem;
+        width: 40px;
+        color: orange; 
+        border: 2px solid white;
+        border-radius: 50%;
+        padding: 7px;
+        background-color: aliceblue;
     }
 }
 
@@ -75,10 +97,10 @@
                     flex-direction: column;
                     gap: 10px;
                     overflow-y: scroll;
-                    height: 70vh; 
+                    height: 60vh; 
 
                     .forecast-data {
-                        background-color: rgba(232, 234, 246, 0.5);
+                        background-color: rgba(232, 234, 246, 0.6);
                         border-radius: 10px;
                         display: flex;
                         flex-direction: row;
@@ -104,24 +126,40 @@
         }
     }
 
-    .hourly-data {
+    .hours-data {
         width: 90%;
         margin: 1rem auto;
-        padding: 20px;
-        overflow-x: scroll;
-        display: flex;
-        gap: 25px;
-        background-color: rgba(232, 234, 246, 0.5);
-        border-radius: 10px;
-
-
-        .hour {
+        .hourly-data {
+            width: 100%;
+            padding: 20px;
+            overflow-x: scroll;
             display: flex;
-            flex-direction: column;
-
-            img {
-                width: 50px;
+            gap: 25px;
+            background-color: rgba(232, 234, 246, 0.6);
+            border-radius: 10px;
+    
+    
+            .hour {
+                display: flex;
+                flex-direction: column;
+    
+                img {
+                    width: 50px;
+                }
             }
+        }
+    }
+
+    .charts {
+        display: flex;
+        flex-wrap: wrap;
+        width: 90%;
+        margin: auto;
+
+        .chart {
+            width: 50%; 
+            margin: auto; 
+            border-radius: 10px
         }
     }
 }
@@ -139,8 +177,8 @@
         .cards-container {
             width: 100%;
         }
-        .hourly-data {
-            width: 100%;
+        .hours-data {
+            width: 95%;
         }
     }
 }
@@ -172,13 +210,18 @@
                 width: 50%;
                 .forecast {
                     .forecast-cards {
-                        height: 86vh;
+                        height: 80vh;
                     }
                 }
             }
         }
-        .hourly-data {
-            width: 90%;
+        .hours-data {
+            width: 88%;
+        }
+        .charts {
+            .chart {
+                width: 100%;
+            }
         }
     }
 }
@@ -188,8 +231,8 @@
         .cards-container {
             width: 97%;
         }
-        .hourly-data {
-            width: 97%;
+        .hours-data {
+            width: 92%;
         }
     }
 }
@@ -226,8 +269,11 @@
                 }
             }
         }
-        .hourly-data {
-            width: 86%;
+        .hours-data {
+            width: 90%;
+            .hourly-data {
+                width: 95%;
+            }
         }
     }
 }

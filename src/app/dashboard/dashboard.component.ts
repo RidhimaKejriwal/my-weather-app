@@ -29,12 +29,29 @@ export class DashboardComponent implements OnInit{
     responsive: true,
     plugins: {
       legend: {
+        labels: {
+          color: 'white'
+        },
         display: true,
-        position: 'top',
+        position: 'bottom',
       }
     },
     scales: {
+      x: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
+      },
       y: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
         beginAtZero: true
       }
     }
@@ -46,12 +63,29 @@ export class DashboardComponent implements OnInit{
     responsive: true,
     plugins: {
       legend: {
+        labels: {
+          color: 'white'
+        },
         display: true,
         position: 'bottom',
       }
     },
     scales: {
+      x: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
+      },
       y: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
         beginAtZero: true
       }
     }
@@ -63,12 +97,40 @@ export class DashboardComponent implements OnInit{
     responsive: true,
     plugins: {
       legend: {
+        labels: {
+          color: 'white'
+        },
         display: true,
         position: 'bottom',
       }
     },
     scales: {
+      r: {
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
+        angleLines: {
+          color: 'rgba(255, 255, 255, 0.5)', 
+        },
+        pointLabels: {
+          color: 'white', 
+        },
+      },
+      x: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
+      },
       y: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)',
+        },
         beginAtZero: true
       }
     }
@@ -96,6 +158,9 @@ export class DashboardComponent implements OnInit{
       this.weatherData = res;
       this.fillData();
       this.spinner.hide();
+      this.toastr.info(this.description, 'Weather Info', {
+        timeOut: 5000
+      });
     },
     (error) => {
       if(error.status === 400) {
@@ -118,7 +183,7 @@ export class DashboardComponent implements OnInit{
             this.convertFahrenheitToCelsius(day.temp)
           )],
           label: 'Temperature (°C)',
-          borderColor: '#3e95cd',
+          borderColor: 'rgb(255, 159, 64)',
           backgroundColor: 'rgba(255, 159, 64, 0.2)',
           fill: true,
         },
@@ -133,7 +198,7 @@ export class DashboardComponent implements OnInit{
           label: 'Precipitation Probability (%)',
           backgroundColor: ['rgba(75, 192, 192, 0.2)'],
           borderColor: ['rgb(75, 192, 192)'],
-          borderWidth: 1,
+          borderWidth: 2,
         },
       ],
     };
@@ -147,8 +212,8 @@ export class DashboardComponent implements OnInit{
           )],
           label: 'Wind Speed (km/h)',
           backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          borderColor: 'rgb(153, 102, 255)',
-          borderWidth: 1,
+          borderColor: 'rgb(135, 79, 246)',
+          fill: true,
         },
       ],
     };
@@ -177,11 +242,27 @@ export class DashboardComponent implements OnInit{
 
   showAlert()
  {
-  if(this.weatherData.alerts.length > 0) {
-    const alert = this.weatherData.alerts[0]
-    this.toastr.warning(alert.headline, alert.event, {
-      timeOut: 10000
-    });
+
+  this.toastr.info(this.description, 'Weather Info', {
+    timeOut: 5000
+  });
+
+  if (this.convertFahrenheitToCelsius(this.selectedDay.tempmax) >= 40) {
+    this.toastr.error("Temperatures are expected to rise above 40°C. Stay indoors, stay hydrated, and avoid outdoor activities.", "Severe heat alert!");
+  }else if (this.convertFahrenheitToCelsius(this.selectedDay.tempmax) > 35 && this.convertFahrenheitToCelsius(this.selectedDay.tempmax) < 40) {
+    this.toastr.warning("High temperatures of 35–40°C expected. Stay hydrated and avoid outdoor activities during peak hours.", "Warm weather alert!");
+  }
+
+  if (this.convertFahrenheitToCelsius(this.selectedDay.tempmin) <= 5) {
+    this.toastr.error("Temperatures are expected to drop below 5°C. Wear warm clothing and limit outdoor exposure.", "Extreme cold conditions!");
+  }else if(this.convertFahrenheitToCelsius(this.selectedDay.tempmin) > 5 && this.convertFahrenheitToCelsius(this.selectedDay.tempmin) < 10) {
+    this.toastr.warning("Cold weather with temperature dropping between 5–10°C. Dress warmly and take necessary precautions.", "Cold weather alert!");
+  }
+
+  if (this.selectedDay.precipprob >= 80) {
+    this.toastr.error("High precipitation probability with heavy rain and possible storms. Avoid traveling and stay safe from waterlogging or flash floods", "Heavy rainfall alert!")
+  } else if (this.selectedDay.precipprob > 50 && this.selectedDay.precipprob < 80) {
+    this.toastr.warning("Rainfall expected. Carry an umbrella and stay alert for slippery roads.", "Rainfall alert!");
   }
  }
 

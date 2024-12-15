@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
-      preventDuplicates: true
+      timeOut: 10000
     }),
     NgxSpinnerModule,
     FormsModule,
