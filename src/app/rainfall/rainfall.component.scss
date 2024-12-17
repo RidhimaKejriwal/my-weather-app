@@ -1,0 +1,43 @@
+.rainfall {
+    .container {
+        form {
+            background-color: white;
+            width: 65%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            label {
+                color: black;
+            }
+            input {
+                width: 95%;
+                margin: auto;
+            }
+        }
+    }
+    .response {
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: rgba(232, 234, 246, 0.2);
+    }
+}
+
+.red {
+    color: red;
+}
+
+@media screen and (max-width: 800px) {
+    .rainfall {
+        .container {
+            form {
+                width: 85%;
+            }
+            
+        }
+        .response {
+            width: 60%;
+        }
+    }
+}

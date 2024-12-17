@@ -7,6 +7,8 @@ import {
   ChartConfiguration,
   registerables
 } from 'chart.js';
+import { RainfallService } from '../services/rainfall.service';
+import { Router } from '@angular/router';
 
 Chart.register(...registerables);
 
@@ -136,7 +138,7 @@ export class DashboardComponent implements OnInit{
     }
   };
 
-  constructor(private weatherService: WeatherService, private toastr: ToastrService, private spinner: NgxSpinnerService) {
+  constructor(private weatherService: WeatherService, private toastr: ToastrService, private spinner: NgxSpinnerService, private rainfallService: RainfallService, private router: Router) {
 
   }
 
@@ -297,6 +299,10 @@ export class DashboardComponent implements OnInit{
 
   changeHourlyData(day: any) {
     this.selectedDay = day;
+  }
+
+  navigateToRainfallPredict() {
+    this.router.navigate(['/rainfall-predict']);
   }
 
 }

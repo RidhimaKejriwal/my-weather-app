@@ -1,0 +1,31 @@
+<div class="rainfall my-4">
+    <h1 class="text-center text-white">Rainfall prediction</h1>
+
+    <div class="container mt-4">
+        <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()">
+          <div class="form-group" *ngFor="let field of fields">
+            <label [for]="field.key" class="form-label mt-3 mb-1">{{ field.label }} : <span class="red">*</span> </label>
+            <input
+              [id]="field.key"
+              class="form-control"
+              [type]="field.type"
+              [formControlName]="field.key"
+              [placeholder]="'Enter ' + field.label"
+            />
+            <div *ngIf="weatherForm.get(field.key)?.invalid && weatherForm.get(field.key)?.touched" class="text-danger">
+              {{ field.label }} is required and must be valid.
+            </div>
+          </div>
+      
+          <button type="submit" class="btn btn-primary mt-3" [disabled]="weatherForm.invalid">
+            Submit
+          </button>
+        </form>
+    </div>     
+    
+    <div class="response">
+        <h3 class="text-white">Response: </h3>
+        <h6 class="text-white">Prediction: {{prediction}}</h6>
+        <h6 class="text-white">Probabilty: {{probability}}%</h6>
+    </div>
+</div>

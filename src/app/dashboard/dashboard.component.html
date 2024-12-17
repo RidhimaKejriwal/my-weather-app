@@ -1,9 +1,17 @@
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.5)"
+  size="medium"
+  color="white"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+></ngx-spinner>
 <div class="header text-center form-group">
     <div class="search">
         <input class="form-control" type="text" placeholder="Search for a location" [(ngModel)]="searchInput" (change)="search()"> 
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
     </div>
-    <i (click)="showAlert()" class="fa-regular fa-bell alert-icon"></i>
+    <i (click)="showAlert()" class="fa-regular fa-bell alert-icon cursor-pointer"></i>
+    <i (click)="navigateToRainfallPredict()" class="fa-solid fa-cloud-showers-heavy alert-icon cursor-pointer"></i>
 </div>
 <div class="weather-container" *ngIf="weatherData">
     <div class="cards-container">

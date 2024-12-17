@@ -10,13 +10,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsComponent } from './charts/charts.component';
 import { FormsModule } from '@angular/forms';
+import { RainfallComponent } from './rainfall/rainfall.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    ChartsComponent
+    ChartsComponent,
+    RainfallComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     }),
     NgxSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
