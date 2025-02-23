@@ -12,7 +12,11 @@
     align-items: center;
 
     img {
-        width: 30vw;
+        width: 20vw;
+    }
+    img:hover, button:hover {
+        transform: scale(1.06);
+        transition: transform 0.3s ease;
     }
 
     button {

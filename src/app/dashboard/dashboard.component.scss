@@ -52,11 +52,12 @@
             width:65%;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
 
             .weather-card {
-                width: calc(50% - 10px);
-                background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/images/card1-bg.webp');
+                width: calc(50% - 20px);
+                background:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/assets/images/card2-bg.jpg');
+                background-size: cover;
                 padding: 10px;
 
                 .description {
@@ -65,24 +66,50 @@
                 }
             }
 
+            .weather-card:hover, .air-quality:hover, .rainfall:hover, .moonrise:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                transition: transform 0.3s ease;
+            }
+            
+            .weather-card:hover {
+                background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/images/card2-bg.jpg');
+                background-size: cover;
+            }
+
             .air-quality {
-                width: calc(50% - 10px);
-                background:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/images/card2-bg.jpg');
+                width: calc(50% - 20px);
+                background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/assets/images/wind_bg.gif');
                 padding: 10px;
                 background-size: cover;
-                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .air-quality:hover {
+                background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/wind_bg.gif');
+                background-size: cover;
             }
 
             .rainfall {
-                width: calc(50% - 10px);
-                background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/images/card3-bg.jpg');
+                width: calc(50% - 20px);
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/assets/images/rain_bg.gif');
                 padding: 10px;
+                background-size: cover;
+            }
+
+            .rainfall:hover {
+                background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/rain_bg.gif');
+                background-size: cover;
             }
 
             .moonrise {
-                width: calc(50% - 10px);
-                background:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/assets/images/card4-bg.jpg');
+                width: calc(50% - 20px);
+                background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/assets/images/night_bg.gif');
                 padding: 10px;
+                background-size: cover;
+            }
+
+            .moonrise:hover {
+                background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/images/night_bg.gif');
                 background-size: cover;
             }
         }
@@ -153,13 +180,21 @@
     .charts {
         display: flex;
         flex-wrap: wrap;
-        width: 90%;
+        width: 95%;
         margin: auto;
+        gap: 10px;
 
         .chart {
-            width: 50%; 
+            width: calc(50% - 10px);; 
             margin: auto; 
-            border-radius: 10px
+            border-radius: 10px;
+            background-color: rgba(232, 234, 246, 0.6);;
+            padding: 10px;
+        }
+        .chart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease,
         }
     }
 }

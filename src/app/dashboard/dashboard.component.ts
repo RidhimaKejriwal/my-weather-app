@@ -29,10 +29,11 @@ export class DashboardComponent implements OnInit{
 
   lineChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         labels: {
-          color: 'white'
+          color: '#212529'
         },
         display: true,
         position: 'bottom',
@@ -41,18 +42,18 @@ export class DashboardComponent implements OnInit{
     scales: {
       x: {
         ticks: {
-          color: 'white',
+          color: '#212529',
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
+          // color: '#212529',
         },
       },
       y: {
         ticks: {
-          color: 'white',
+          color: '#212529',
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
+          // color: '#212529',
         },
         beginAtZero: true
       }
@@ -63,10 +64,11 @@ export class DashboardComponent implements OnInit{
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         labels: {
-          color: 'white'
+          color: '#212529'
         },
         display: true,
         position: 'bottom',
@@ -75,68 +77,69 @@ export class DashboardComponent implements OnInit{
     scales: {
       x: {
         ticks: {
-          color: 'white',
+          color: '#212529',
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
+          // color: 'rgba(255, 255, 255, 0.2)',
         },
       },
       y: {
         ticks: {
-          color: 'white',
+          color: '#212529',
         },
         grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
+          // color: 'rgba(255, 255, 255, 0.2)',
         },
         beginAtZero: true
       }
     }
   };
 
-  windChartData: any
+  // windChartData: any
 
-  windChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: 'white'
-        },
-        display: true,
-        position: 'bottom',
-      }
-    },
-    scales: {
-      r: {
-        grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
-        },
-        angleLines: {
-          color: 'rgba(255, 255, 255, 0.5)', 
-        },
-        pointLabels: {
-          color: 'white', 
-        },
-      },
-      x: {
-        ticks: {
-          color: 'white',
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
-        },
-      },
-      y: {
-        ticks: {
-          color: 'white',
-        },
-        grid: {
-          color: 'rgba(255, 255, 255, 0.2)',
-        },
-        beginAtZero: true
-      }
-    }
-  };
+  // windChartOptions: ChartConfiguration['options'] = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   plugins: {
+  //     legend: {
+  //       labels: {
+  //         color: 'white'
+  //       },
+  //       display: true,
+  //       position: 'bottom',
+  //     }
+  //   },
+  //   scales: {
+  //     r: {
+  //       grid: {
+  //         color: 'rgba(255, 255, 255, 0.2)',
+  //       },
+  //       angleLines: {
+  //         color: 'rgba(255, 255, 255, 0.5)', 
+  //       },
+  //       pointLabels: {
+  //         color: 'white', 
+  //       },
+  //     },
+  //     x: {
+  //       ticks: {
+  //         color: 'white',
+  //       },
+  //       grid: {
+  //         color: 'rgba(255, 255, 255, 0.2)',
+  //       },
+  //     },
+  //     y: {
+  //       ticks: {
+  //         color: 'white',
+  //       },
+  //       grid: {
+  //         color: 'rgba(255, 255, 255, 0.2)',
+  //       },
+  //       beginAtZero: true
+  //     }
+  //   }
+  // };
 
   constructor(private weatherService: WeatherService, private toastr: ToastrService, private spinner: NgxSpinnerService, private rainfallService: RainfallService, private router: Router) {
 
@@ -166,7 +169,9 @@ export class DashboardComponent implements OnInit{
     },
     (error) => {
       if(error.status === 400) {
-        this.toastr.error("Invalid City Input!!");
+        this.toastr.error("Invalid City Input!!", '' , {
+          timeOut: 3000
+        } );
       }
       this.spinner.hide();
     },
@@ -205,20 +210,20 @@ export class DashboardComponent implements OnInit{
       ],
     };
 
-    this.windChartData = { 
-      labels: [...this.days.map((day: any) => this.formatDate(day.datetime))],
-      datasets: [
-        {
-          data: [...this.days.map((day: any) =>
-            this.convertMphToKmh(day.windspeed)
-          )],
-          label: 'Wind Speed (km/h)',
-          backgroundColor: 'rgba(153, 102, 255, 0.2)',
-          borderColor: 'rgb(135, 79, 246)',
-          fill: true,
-        },
-      ],
-    };
+    // this.windChartData = { 
+    //   labels: [...this.days.map((day: any) => this.formatDate(day.datetime))],
+    //   datasets: [
+    //     {
+    //       data: [...this.days.map((day: any) =>
+    //         this.convertMphToKmh(day.windspeed)
+    //       )],
+    //       label: 'Wind Speed (km/h)',
+    //       backgroundColor: 'rgba(153, 102, 255, 0.2)',
+    //       borderColor: 'rgb(135, 79, 246)',
+    //       fill: true,
+    //     },
+    //   ],
+    // };
   }
 
   fillData() {
@@ -293,7 +298,7 @@ export class DashboardComponent implements OnInit{
       return "/assets/images/day.png";
     }
     else {
-      return "/assets/images/cloudy-day.png"
+      return "/assets/images/cloudy.gif"
     }
   }
 
