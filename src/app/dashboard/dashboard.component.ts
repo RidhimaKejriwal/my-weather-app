@@ -292,13 +292,13 @@ export class DashboardComponent implements OnInit{
   getImage(day:any) {
     const condition: string = day.conditions;
     if(condition.includes("Rain")) {
-      return "/assets/images/heavy-rain.png";
+      return "/assets/images/rain.gif";
     }
     else if(condition.includes("Clear")) {
-      return "/assets/images/day.png";
+      return "/assets/images/sunny-3.gif";
     }
     else {
-      return "/assets/images/cloudy.gif"
+      return "/assets/images/partial-cloudy.gif"
     }
   }
 
